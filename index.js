@@ -4,7 +4,6 @@ import { pagination } from "./js/pagination.js"
 import { searchByName } from "./js/searchByName.js"
 import { searchByBrand } from "./js/searchByBrand.js"
 
-
 // подготавливаем дату для авторизации
 function serializeDate() {
     const dateObj = new Date()
@@ -27,21 +26,75 @@ const AUTH_KEY = md5(`Valantis_${serializeDate()}`)
 const URL_KEY = 'http://api.valantis.store:40000/'
 const RESERVED_URL = 'https://api.valantis.store:41000/'
 
-const IDdata = {
-	"action": "get_ids",
-	"params": {"limit": 300}
+async function fetchRequest (url, data) {
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'X-Auth': AUTH_KEY,
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(data)
+            })
+
+        if (response.ok) {
+          const json = await response.json()
+
+          return json
+
+        } else {
+            if(response.status) {
+                console.log('Promise resolved but HTTP status failed: ', response.status)
+            }
+        }
+      } catch(err) {
+        console.error('Promise rejected')
+        console.log(err)
+      }
 }
 
-async function fetchRequest (url, data) {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'X-Auth': AUTH_KEY,
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify(data)
+function getIds(url, data) {
+    fetchRequest(url, data)
+    .then((responseData) => {
+        if(!responseData) {
+            getIds(url, data)
+        } else {
+            const ItemsData = {
+                "action": "get_items",
+                "params": {"ids": responseData.result}
+            }
+            getItems(url, ItemsData)
+        }
     })
-    return response.json(); 
+}
+
+function getItems(url, data) {
+    fetchRequest(url, data)
+    .then((responseData) => {
+        if(!responseData) {
+            getItems(url, data)
+        } else {
+            uniqArray.push(responseData.result[0])
+    
+            for (let i = 1; i < responseData.result.length - 1; i++) {
+    
+                if(responseData.result[i].id !== uniqArray[uniqArray.length - 1].id) {
+                    uniqArray.push(responseData.result[i])
+                }
+            }
+    
+            document.querySelector('.filters').style.display = 'flex'
+            document.querySelector('.item-list').style.display = 'flex'
+            document.getElementById('pagination').style.display = 'flex'
+    
+            rangeSlider(uniqArray)
+            pagination(uniqArray)
+            searchByName(uniqArray)
+            searchByBrand(uniqArray)
+    
+            document.querySelector('.loader').remove()
+        }
+    })
 }
 
 let uniqArray = []
@@ -52,34 +105,9 @@ document.getElementById('pagination').style.display = 'none'
 
 showLoader()
 
-fetchRequest(RESERVED_URL, IDdata)
-.then((data) => {
-    const ItemsData = {
-        "action": "get_items",
-        "params": {"ids": data.result}
-    }
+const IDdata = {
+	"action": "get_ids",
+	"params": {"limit": 300}
+}
 
-    fetchRequest(RESERVED_URL, ItemsData)
-    .then((data) => {
-        
-        uniqArray.push(data.result[0])
-
-        for (let i = 1; i < data.result.length - 1; i++) {
-
-            if(data.result[i].id !== uniqArray[uniqArray.length - 1].id) {
-                uniqArray.push(data.result[i])
-            }
-        }
-
-        document.querySelector('.filters').style.display = 'flex'
-        document.querySelector('.item-list').style.display = 'flex'
-        document.getElementById('pagination').style.display = 'flex'
-
-        rangeSlider(uniqArray)
-        pagination(uniqArray)
-        searchByName(uniqArray)
-        searchByBrand(uniqArray)
-
-        document.querySelector('.loader').remove()
-    })
-})
+getIds(RESERVED_URL, IDdata)

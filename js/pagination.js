@@ -58,6 +58,3 @@ export function pagination(itemsArray) {
     createPageButton()
     showPage(currentPage)
 }
-
-
-
