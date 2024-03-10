@@ -17,4 +17,5 @@ API доступно по адресам:<br />
 
 http://api.valantis.store:40000/<br />
 https://api.valantis.store:41000/<br />
-Документация по работе с API прилагается
+
+<a href="https://github.com/ValantisJewelry/TestTaskValantis/blob/main/API.md">Документация по работе с API прилагается</a>
