@@ -1,6 +1,5 @@
 import { rangeSlider } from "./js/slider.js"
 import { pagination } from "./js/pagination.js"
-import { createItemCard } from "./js/card.js"
 import { searchByName } from "./js/searchByName.js"
 
 // подготавливаем дату для авторизации
@@ -25,8 +24,6 @@ const AUTH_KEY = md5(`Valantis_${serializeDate()}`)
 const URL_KEY = 'http://api.valantis.store:40000/'
 const RESERVED_URL = 'https://api.valantis.store:41000/'
 
-let authKey = md5('Valantis_20240309')
-
 const IDdata = {
 	"action": "get_ids",
 	"params": {"limit": 300}
@@ -49,14 +46,14 @@ async function fetchRequest (url, data) {
 
  let uniqArray = []
 
-fetchRequest(URL_KEY, IDdata)
+fetchRequest(RESERVED_URL, IDdata)
 .then((data) => {
     const ItemsData = {
         "action": "get_items",
         "params": {"ids": data.result}
     }
 
-    fetchRequest(URL_KEY, ItemsData)
+    fetchRequest(RESERVED_URL, ItemsData)
     .then((data) => {
         
         uniqArray.push(data.result[0])
