@@ -8,13 +8,15 @@ export function searchByName(itemsArray) {
     const button = document.getElementById('findNameButton')
 
     button.addEventListener('click', function() {
-        searchValue = document.getElementById('findNameInput').value
+        searchValue = document.getElementById('findNameInput')
         
         itemsArray.forEach(el => {
-            if(el.product.includes(searchValue)) {
+            if(el.product.includes(searchValue.value)) {
                 result.push(el)
             }
         });
+        searchValue.value = ''
+
         pagination(result)
     })
 }

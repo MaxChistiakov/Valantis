@@ -5,11 +5,38 @@ line-height: 1.15; /* 1 */
 
 body {
 width: 1280px;
-margin: 0;
+margin: auto;
+margin-top: 50px;
 padding: 0;
 }
 
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.filters {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 50px;
+}
+
+.search-by-brand-and-name {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.filter {
+    width: 1280px;
+}
+
 .item-list {
+    margin: auto;
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
@@ -25,4 +52,25 @@ padding: 0;
     background-color: #fcfcfc;
     border-radius: 15px;
     padding-left: 10px;
+}
+
+.item-card:hover {
+    cursor: pointer;
+    background-color: #f1f1f1;
+}
+
+button {
+    border: 1px solid #f1f1f1;
+    border-radius: 5px;
+    margin: 0;
+    padding: 10px 14px;
+    width: auto;
+    background: transparent;
+    font: inherit;
+}
+
+button:hover {
+    background-color: #01bab0;
+    cursor: pointer;
+    color: #fff;
 }

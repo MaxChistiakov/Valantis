@@ -81,11 +81,15 @@ export function rangeSlider(itemsArray) {
 		}
 		document.querySelector('.histogram-list li').classList.remove('ui-histogram-active');
 
-		let startIndex = itemsArray.findIndex(el => el.price >= valLower)
-		let endIndex = itemsArray.findLastIndex(el => el.price <= valUpper)
-		let rangeArr = itemsArray.slice(startIndex, endIndex)
-
-		pagination(rangeArr)
+		document.querySelectorAll('.range').forEach(el => {
+			el.addEventListener('change', () => {
+				let startIndex = itemsArray.findIndex(el => el.price >= valLower)
+				let endIndex = itemsArray.findLastIndex(el => el.price <= valUpper)
+				let rangeArr = itemsArray.slice(startIndex, endIndex)
+		
+				pagination(rangeArr)
+			})
+		})
 	}
 	
 	// изменяем диапазон цен вручную

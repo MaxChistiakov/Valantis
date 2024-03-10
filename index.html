@@ -4,21 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="css/loader.css">
     <link rel="stylesheet" type="text/css" href="css/slider.css">
     <link rel="stylesheet" type="text/css" href="css/pagination.css">
+    <link rel="stylesheet" type="text/css" href="css/brandSelector.css">
+    <link rel="stylesheet" type="text/css" href="css/searchByName.css">
     <title>Document</title>
 </head>
 <body>
     <div class="wrapper">
         <div class="filters">
-            <form action="" id="filters-form">
-                <input type="text" placeholder="name">
-                <select name="brand" id="brand-selector">
-                </select>
-            </form>
-            <div>
-                <input id="findNameInput" type="text" placeholder="enter name">
-                <button id="findNameButton">find</button>
+            <div class="search-by-brand-and-name">
+                <form id="filters-form">
+                    select brand
+                    <select class="brand-selector" id="brand-selector">
+                        <option disabled>select brand</option>
+                    </select>
+                </form>
+                <div>
+                    enter name
+                    <input id="findNameInput" type="text" placeholder="enter name">
+                    <button id="findNameButton">find</button>
+                </div>
             </div>
             <div class="filter">
                 <div class="easy-basket-filter">
@@ -69,6 +76,7 @@
         </div>
     </div>
     <script src="js/md5.min.js"></script>
+    <script type="module" src="js/searchByBrand.js" ></script>
     <script type="module" src="js/searchByName.js" ></script>
     <script type="module" src="js/pagination.js" ></script>
     <script type="module" src="js/data.js"></script>

@@ -15,16 +15,6 @@
     background-color: #fff;
 }
 
-.pagination-button {
-    border: 1px solid #f1f1f1;
-    border-radius: 5px;
-    margin: 0;
-    padding: 10px 14px;
-    width: auto;
-    background: transparent;
-    font: inherit;
-}
-
 .active {
     background-color: #01bab0;
 }

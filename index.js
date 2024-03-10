@@ -1,6 +1,9 @@
+import { showLoader } from './js/loader.js'
 import { rangeSlider } from "./js/slider.js"
 import { pagination } from "./js/pagination.js"
 import { searchByName } from "./js/searchByName.js"
+import { searchByBrand } from "./js/searchByBrand.js"
+
 
 // подготавливаем дату для авторизации
 function serializeDate() {
@@ -29,8 +32,6 @@ const IDdata = {
 	"params": {"limit": 300}
 }
 
-
-
 async function fetchRequest (url, data) {
     const response = await fetch(url, {
       method: 'POST',
@@ -43,8 +44,13 @@ async function fetchRequest (url, data) {
     return response.json(); 
 }
 
+let uniqArray = []
 
- let uniqArray = []
+document.querySelector('.filters').style.display = 'none'
+document.querySelector('.item-list').style.display = 'none'
+document.getElementById('pagination').style.display = 'none'
+
+showLoader()
 
 fetchRequest(RESERVED_URL, IDdata)
 .then((data) => {
@@ -64,16 +70,16 @@ fetchRequest(RESERVED_URL, IDdata)
                 uniqArray.push(data.result[i])
             }
         }
+
+        document.querySelector('.filters').style.display = 'flex'
+        document.querySelector('.item-list').style.display = 'flex'
+        document.getElementById('pagination').style.display = 'flex'
+
         rangeSlider(uniqArray)
         pagination(uniqArray)
         searchByName(uniqArray)
-    })
-    .then(() => {
+        searchByBrand(uniqArray)
 
-        // let parent = document.getElementById('parent');
-
-        // for (let i = 0; i <= uniqArray.length - 1; i++) {
-        //     createItemCard(parent, uniqArray[i])
-        // }
+        document.querySelector('.loader').remove()
     })
 })
