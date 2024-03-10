@@ -1,5 +1,9 @@
+import { rangeSlider } from "./js/slider.js"
+import { pagination } from "./js/pagination.js"
+import { createItemCard } from "./js/card.js"
+import { searchByName } from "./js/searchByName.js"
 
-
+// подготавливаем дату для авторизации
 function serializeDate() {
     const dateObj = new Date()
     const currentYear = dateObj.getFullYear()
@@ -17,67 +21,43 @@ function serializeDate() {
     return `${currentYear + currentMonth + currentDay}`
 }
 
+const AUTH_KEY = md5(`Valantis_${serializeDate()}`)
+const URL_KEY = 'http://api.valantis.store:40000/'
+const RESERVED_URL = 'https://api.valantis.store:41000/'
 
-let items = []
-
-console.log(items)
-
-const authStr = md5(`Valantis_${serializeDate()}`)
-
+let authKey = md5('Valantis_20240309')
 
 const IDdata = {
 	"action": "get_ids",
-	"params": {"limit": 50}
+	"params": {"limit": 300}
 }
 
 
-function addElem(parent, itemData) {
-    let div = document.createElement('div');
-    let attr = document.createAttribute('class')
-    attr.value = 'item-card'
-    div.setAttributeNode(attr);
 
-    parent.appendChild(div);
-
-    div.setAttributeNode(attr);
-
-    div.innerHTML = `
-        <p>item id: ${itemData.id}<br/>
-        brand: ${itemData.brand}<br/>
-        price: ${itemData.price}<br/>
-        name: ${itemData.product}</p>
-    `
-
-    parent.appendChild(div);
-}
-
-console.log(JSON.stringify(IDdata))
-
-const postIDs = async (url, data) => {
+async function fetchRequest (url, data) {
     const response = await fetch(url, {
       method: 'POST',
       headers: {
-        'X-Auth': authStr,
+        'X-Auth': AUTH_KEY,
         'Content-type': 'application/json'
       },
       body: JSON.stringify(data)
     })
     return response.json(); 
-  }
+}
 
-  let uniqArray = []
 
-  postIDs('http://api.valantis.store:40000/', IDdata)
-  .then((data) => {
+ let uniqArray = []
+
+fetchRequest(URL_KEY, IDdata)
+.then((data) => {
     const ItemsData = {
         "action": "get_items",
         "params": {"ids": data.result}
     }
 
-
-    postIDs('http://api.valantis.store:40000/', ItemsData)
+    fetchRequest(URL_KEY, ItemsData)
     .then((data) => {
-
         
         uniqArray.push(data.result[0])
 
@@ -87,12 +67,16 @@ const postIDs = async (url, data) => {
                 uniqArray.push(data.result[i])
             }
         }
-        console.log(uniqArray)
-    }).then(() => {
-        let parent = document.querySelector('#parent');
-
-        for (let i = 1; i <= uniqArray.length - 1; i++) {
-            addElem(parent, uniqArray[i])
-        }
+        rangeSlider(uniqArray)
+        pagination(uniqArray)
+        searchByName(uniqArray)
     })
-  })
+    .then(() => {
+
+        // let parent = document.getElementById('parent');
+
+        // for (let i = 0; i <= uniqArray.length - 1; i++) {
+        //     createItemCard(parent, uniqArray[i])
+        // }
+    })
+})

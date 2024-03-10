@@ -4,18 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/css/slider.css">
+    <link rel="stylesheet" href="/css/pagination.css">
     <title>Document</title>
 </head>
 <body>
     <div class="wrapper">
         <div class="filters">
-
+            <form action="" id="filters-form">
+                <input type="text" placeholder="name">
+                <select name="brand" id="brand-selector">
+                </select>
+            </form>
+            <div>
+                <input id="findNameInput" type="text" placeholder="enter name">
+                <button id="findNameButton">find</button>
+            </div>
+            <div class="filter">
+                <div class="easy-basket-filter">
+                   <div class="easy-basket-filter-histogram">
+                       <ul class="histogram-list">
+                           <li id="price-range-1" price-range-from="0" price-range-to="1000">
+                               <div id="histogram-baloon-1" class="histogram-baloon"></div>
+                               <div class="histogram-height">
+                               </div>
+                           </li>
+                           <li id="price-range-2" price-range-from="1001" price-range-to="2000">
+                               <div id="histogram-baloon-2" class="histogram-baloon"></div>
+                               <div class="histogram-height">
+                               </div>
+                           </li>
+                           <li id="price-range-3" price-range-from="2001" price-range-to="3000">
+                               <div id="histogram-baloon-3" class="histogram-baloon"></div>
+                               <div class="histogram-height">
+                               </div>
+                           </li>
+                           <li id="price-range-4" price-range-from="3000" price-range-to="4000">
+                               <div id="histogram-baloon-4" class="histogram-baloon"></div>
+                               <div class="histogram-height">
+                               </div>
+                           </li>
+                           <li id="price-range-5" price-range-from="4001" price-range-to="5000">
+                               <div id="histogram-baloon-5" class="histogram-baloon"></div>
+                               <div class="histogram-height">
+                               </div>
+                           </li>
+                       </ul>
+                   </div>
+                   <div class="easy-basket-filter-info">
+                       <p class="iLower"><input type="text" class="easy-basket-lower" value="0" min="0"  maxlength=6/></p>
+                       <p  class="iUpper"><input type="text" class="easy-basket-upper"  min="0"  maxlength=6/></p>
+                   </div>
+                   <div class="easy-basket-filter-range">
+                       <input id="lower" type="range" class="lower range" step="any" min="0"  value="0"/>
+                       <input id="upper" type="range" class="upper range" step="any" min="0"  />
+                       <div class="fill"></div>
+                   </div>
+               </div>
+            </div>
         </div>
         <div class="item-list" id="parent">
-
+        </div>
+        <div id="pagination" class="pagination-container">
         </div>
     </div>
     <script src="js/md5.min.js"></script>
-    <script src="index.js"></script>
+    <script type="module" src="js/searchByName.js" ></script>
+    <script type="module" src="js/pagination.js" ></script>
+    <script type="module" src="js/data.js"></script>
+    <script type="module" src="js/slider.js"></script>
+    <script type="module" src="index.js"></script>
 </body>
 </html>

@@ -1,0 +1,230 @@
+body {
+    padding: 20% 0;
+    font: 15px Open Sans;
+  }
+  .easy-basket-filter {
+      width: 50%;
+      margin: 100px 25%;
+      position: relative;
+  }
+  .fill {
+      height: 3px;
+      width: 100%;
+      background-color: #01BAB0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+  }
+  .easy-basket-filter-info {
+      box-sizing: border-box;
+      padding: 0;
+      width: 100%;
+      justify-content: space-between;
+      position: absolute;
+      top: -50px;
+  }
+  .easy-basket-filter-info p{
+      color: #fff;
+      padding: 2px 6px;
+      background-color: #01BAB0;
+      border-radius: 4px;
+      margin:0;
+  }
+  .easy-basket-filter-info .iLower{
+      float:left;
+      display: inline-block;
+  }
+  .easy-basket-filter-info .iUpper{
+      float:right;
+      display: inline-block;
+  }
+   .easy-basket-filter-info p:after{
+      border-color: #01BAB0 transparent transparent;
+      content: "";
+      position: absolute;
+      bottom: -3px;
+      border-color: #01BAB0 transparent transparent;
+      border-style: solid;
+      border-width: 3px 4px;
+      -webkit-transform: translate(-50%, 50%);
+      transform: translate(-50%, 50%);
+      font-size: 15px;
+  }
+  .easy-basket-filter-info .iLower:after{
+      left: 9px;
+  }
+  .easy-basket-filter-info .iUpper:after{
+      right: 1px;
+  } 
+  .easy-basket-filter-info input{
+      width: inherit;
+      border: none;
+      color: #fff;
+      font: 11px Open Sans;
+      background-color: #01bab0;
+      width: 30px;
+      text-align:center;
+  }
+  /***** Position dual *****/
+  .range {
+      position: absolute;
+      left: 0;
+      top: 0;
+  }
+  
+  /****** Style range ******/
+  input[type=range] {
+      -webkit-appearance: none;
+      width: 100%;
+      margin: 0;
+      background: transparent;
+  }
+  
+  input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      cursor: pointer;
+      position: relative;
+      z-index: 3;
+  }
+  
+  input[type=range]:focus, input[type=text]:focus {
+      outline: none;
+  }
+  input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height:20px;
+      width: 20px;
+      border: 5px solid #f1f1f1;
+      box-shadow: 0 1px 5px -1px rgba(0, 0, 0, 0.5);
+      border-radius: 100%;
+      background: #01BAB0;
+      cursor: pointer;
+      margin-top: -9px;
+  }
+  input[type=range]::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 3px;
+      cursor: pointer;
+      background: #707D7D;
+      border-radius: 1.3px;
+  }
+  
+  input[type=range].lower::-webkit-slider-runnable-track {
+      background: red;
+  }
+  .easy-basket-filter-ticks {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+          -ms-flex-pack: justify;
+              justify-content: space-between;
+      height: 5px;
+      padding-top: 8px;
+      font: 11px Open Sans;
+      cursor: default;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+  }
+  .easy-basket-filter-ticks > div {
+      height: 100%;
+      width: 1px;
+      background: #DDD;
+      color: #888;
+  }
+  .easy-basket-filter-ticks > div:nth-child(10n - 9) {
+      height: 150%;
+  }
+  .easy-basket-filter-ticks > div:nth-child(10n - 9)::before {
+      display: block;
+      content: attr(data-value);
+      -webkit-transform: translate(-50%, 50%);
+              transform: translate(-50%, 50%);
+      text-align: center;
+      width: 40px;
+  }
+  
+  
+  /* Гистограмма	*/
+  .easy-basket-filter-histogram{
+      width: 100%;
+      display: block;
+      float: left;
+      margin:0;
+      top: -51px;
+      position: absolute;
+  }
+  .easy-basket-filter-histogram ul{
+      display: inline-block;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0;
+  }
+  .easy-basket-filter-histogram ul li{
+      height: 35px;
+      box-sizing: border-box;
+      background-color: #f1f1f1;
+      width: 20%;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: block;
+      border-right:1px solid #fff;
+      float: left;
+      position: relative;
+      cursor: pointer;
+  }
+  .ui-histogram-active{
+      background-color: rgba(1, 186, 176, 0.39) !important;
+  }
+  .easy-basket-filter-histogram ul li:last-child{
+      border-right: 0px;
+  }
+  .easy-basket-filter-histogram ul li:hover {
+      background-color: rgba(1, 186, 176, 0.39);
+  }
+  .easy-basket-filter-histogram ul li:hover > .histogram-baloon{
+      display: none;
+  }
+  .easy-basket-filter-histogram ul li:hover > .histogram-baloon{
+      display: block;
+  }
+  .easy-basket-filter-histogram .histogram-baloon{
+      background-color: #f1f1f1;
+      position: absolute;
+      border-radius: 4px;
+      font: 12px Arial;
+      top: -40px;
+      line-height: 18px;
+      padding: 2px 6px;
+      white-space: nowrap;
+      display: none;
+  }
+  .easy-basket-filter-histogram .histogram-height{
+      background-color: #fff;
+  }
+  .easy-basket-filter-histogram .easy-basket-filter-histogram-arrow{
+      position: absolute;
+      display: block;
+      width: 10px;
+      height: 10px;
+      overflow: hidden;
+      border: 1px solid #ccc;
+      background: #FFF;
+      -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.7071067811865475, M12=-0.7071067811865477, M21=0.7071067811865477, M22=0.7071067811865475, SizingMethod='auto expand')";
+      filter: progid:DXImageTransform.Microsoft.Matrix(M11=.7071067811865475, M12=-.7071067811865477, M21=.7071067811865477, M22=.7071067811865475, SizingMethod='auto expand');
+      -moz-transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+      -o-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+      left: 58px;
+      bottom: -6px;
+      border-left: none;
+      border-top: none;
+      box-shadow: 4px 1px 3px rgba(0,0,0,.09);
+      left: 56px\9;
+      bottom: -4px\9;
+  }
